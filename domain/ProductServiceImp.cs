@@ -1,6 +1,5 @@
 using db;
 using Interfaces;
-using Adapter;
 using Entities;
 
 namespace Domain.Services
@@ -29,18 +28,20 @@ namespace Domain.Services
         }
 
         // Crear un producto
-        public async Task CrearProducto(DomainProduct producto)
+        public async Task<DomainProduct> CrearProducto(DomainProduct producto)
         {
             await repository.CrearProducto(producto);
+            return producto;
         }
 
         // Actualizar un producto
-        public async Task ActualizarProducto(DomainProduct producto)
+        public async Task<DomainProduct> ActualizarProducto(DomainProduct producto)
         {
             var existing = await repository.ObtenerProductoPorId(producto.id_producto);
             if (existing == null) throw new Exception("Producto no encontrado");
 
             await repository.ActualizarProducto(producto);
+            return producto;
         }
 
         // Eliminar un producto
@@ -53,7 +54,7 @@ namespace Domain.Services
         }
 
         // Aplicar descuento a un producto
-        public async Task AplicarDescuentoProducto(int id_producto, int discountPercent)
+        public async Task<DomainProduct> AplicarDescuentoProducto(int id_producto, int discountPercent)
         {
             var producto = await repository.ObtenerProductoPorId(id_producto);
             if (producto == null) throw new Exception("Producto no encontrado");
@@ -62,6 +63,7 @@ namespace Domain.Services
             producto.precio = producto.precio * (1 - discountPercent / 100f);
 
             await repository.ActualizarProducto(producto);
+            return producto;
         }
     }
 }

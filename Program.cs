@@ -8,8 +8,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Obtener cadena de conexion
+var connectionstr = builder.Configuration.GetConnectionString("DefaultConnection");
+
 //Register repository
-builder.Services.AddScoped(sp => new Repository("Server=sql10.freesqldatabase.com;Port=3306;Database=sql10799584;User Id=sql10799584;Password=tWI5IABTRJ;"));
+builder.Services.AddScoped(sp => new Repository(connectionstr!));
 
 //Register Service
 builder.Services.AddScoped<ProductService>();

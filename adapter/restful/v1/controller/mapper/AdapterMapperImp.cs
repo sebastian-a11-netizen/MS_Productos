@@ -1,8 +1,9 @@
 using Entities;
+using Interfaces;
 
 namespace Adapter
 {
-    public class AdapterMapper
+    public class AdapterMapper : IAdapterMapper
     {
         public AdapterProduct ToAdapterProduct(DomainProduct domainProduct)
         {
@@ -18,6 +19,11 @@ namespace Adapter
             };
         }
 
+        public List<AdapterProduct> ToAdapterProductList(List<DomainProduct> domainProducts)
+        {
+            return domainProducts.Count == 0 ? new List<AdapterProduct>() : domainProducts.Select(ToAdapterProduct).ToList();
+        }
+
         public DomainProduct ToDomainProduct(AdapterProduct adapterProduct)
         {
             return new DomainProduct
@@ -30,6 +36,11 @@ namespace Adapter
                 descripcion = adapterProduct.descripcion,
                 iva = adapterProduct.iva
             };
+        }
+        
+        public List<DomainProduct> ToDomainProductList(List<AdapterProduct> adapterProducts)
+        {
+            return adapterProducts.Count == 0 ? new List<DomainProduct>() : adapterProducts.Select(ToDomainProduct).ToList();
         }
     }
 }

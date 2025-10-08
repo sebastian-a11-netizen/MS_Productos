@@ -1,4 +1,3 @@
-using Adapter;
 using Entities;
 
 namespace Interfaces
@@ -7,9 +6,9 @@ namespace Interfaces
     {
         Task<List<DomainProduct>> ObtenerProductos();
         Task<DomainProduct?> ObtenerProductoPorId(int id_producto);
-        Task AplicarDescuentoProducto(int id_producto, int discountPercent);
-        Task CrearProducto(DomainProduct producto);
-        Task ActualizarProducto(DomainProduct producto);
+        Task<DomainProduct> AplicarDescuentoProducto(int id_producto, int discountPercent);
+        Task<DomainProduct> CrearProducto(DomainProduct producto);
+        Task<DomainProduct> ActualizarProducto(DomainProduct producto);
         Task EliminarProducto(int id_producto);
     }
 }

@@ -20,38 +20,43 @@ public class ProductController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<AdapterProduct>>> ObtenerProductos()
     {
-        return Ok(await productService.ObtenerProductos());
+        return Ok(adapterMapper.ToAdapterProductList(await productService.ObtenerProductos()));
     }
 
     [HttpGet("{id_producto}")]
     public async Task<ActionResult<AdapterProduct>> ObtenerProductoPorId(int id_producto)
     {
-        var producto = await productService.ObtenerProductoPorId(id_producto);
-        return Ok(producto);
+        return Ok(await productService.ObtenerProductoPorId(id_producto));
     }
 
     [HttpPut("{id_producto}/descuento")]
-    public async Task<IActionResult> AplicarDescuento(int id_producto, [FromBody] int porcentajeDescuento)
+    public async Task<ActionResult<AdapterProduct>> AplicarDescuento(int id_producto, int porcentaje_descuento)
     {
-        await productService.AplicarDescuentoProducto(id_producto, porcentajeDescuento);
-        return Ok(new { mensaje = "Descuento aplicado correctamente" });
+        await productService.AplicarDescuentoProducto(id_producto, porcentaje_descuento);
+        var domainProduct = await productService.ObtenerProductoPorId(id_producto);
+        return Ok(adapterMapper.ToAdapterProduct(domainProduct!));
     }
 
     [HttpPost]
-    public async Task CrearProducto([FromBody] AdapterProduct producto)
+    public async Task<ActionResult<AdapterProduct>> CrearProducto([FromBody] AdapterProduct producto)
     {
-        await productService.CrearProducto(adapterMapper.ToDomainProduct(producto));
+        var domainProduct = adapterMapper.ToDomainProduct(producto);
+        await productService.CrearProducto(domainProduct);
+        return Ok(adapterMapper.ToAdapterProduct(domainProduct)); 
     }
 
     [HttpPut]
-    public async Task ActualizarProducto([FromBody] AdapterProduct producto)
+    public async Task<ActionResult<AdapterProduct>> ActualizarProducto([FromBody] AdapterProduct producto)
     {
-        await productService.ActualizarProducto(adapterMapper.ToDomainProduct(producto));
+        var domainProduct = adapterMapper.ToDomainProduct(producto);
+        await productService.ActualizarProducto(domainProduct);
+        return Ok(adapterMapper.ToAdapterProduct(domainProduct));
     }
 
     [HttpDelete("{id_producto}")]
-    public async Task EliminarProducto(int id_producto)
+    public async Task<IActionResult> EliminarProducto(int id_producto)
     {
         await productService.EliminarProducto(id_producto);
+        return NoContent();
     }
 }
