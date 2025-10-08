@@ -1,6 +1,0 @@
-/home/sebastian/Projects/MS_Productos/obj/Debug/net6.0/MS_Productos.csproj.AssemblyReference.cache
-/home/sebastian/Projects/MS_Productos/obj/Debug/net6.0/MS_Productos.GeneratedMSBuildEditorConfig.editorconfig
-/home/sebastian/Projects/MS_Productos/obj/Debug/net6.0/MS_Productos.AssemblyInfoInputs.cache
-/home/sebastian/Projects/MS_Productos/obj/Debug/net6.0/MS_Productos.AssemblyInfo.cs
-/home/sebastian/Projects/MS_Productos/obj/Debug/net6.0/MS_Productos.csproj.CoreCompileInputs.cache
-/home/sebastian/Projects/MS_Productos/obj/Debug/net6.0/MS_Productos.MvcApplicationPartsAssemblyInfo.cache
