@@ -1,1 +1,10 @@
+#build
+bin/
+obj/
+
+# env conf
+.vscode/
+.vs/
+
+# secrets and string conf
 appsettings.Development.json
